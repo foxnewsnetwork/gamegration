@@ -1,18 +1,22 @@
-module Gamegration
-  class Action
-    attr_reader :name
+class Gamegration::Action 
+  class ActionIdentifier < ActiveRecord::Base
+    self.table_name = "actions"
 
-    def initialize(name, &action)
-      @action = action
-      @name = name
-    end
+    has_many :action_node_relationships, :class_name => "Gamegration::ActionNodeRelationship"
+  end
+  attr_reader :name
 
-    def call(initial_state)
-      @action.call initial_state
-    end
+  def initialize(name, &action)
+    @action = action
+    @identifier = ActionIdentifier.find_by_name name
+    @name = name
+  end
 
-    def at(node)
-      action_node_relationships.where(:node => node)
-    end
+  def call(initial_state)
+    @action.call initial_state
+  end
+
+  def at(node)
+    @identifier.action_node_relationships.where(:node => node)
   end
 end

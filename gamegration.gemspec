@@ -20,4 +20,6 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency "simplecov", "~>0.7"
   gem.add_development_dependency "faker", "~>1.2"
   gem.add_dependency "capybara", "~>2.1.0"
+  gem.add_dependency "rails", "~>4.0.0"
+  gem.add_dependency "mysql2", "~>0.3.13"
 end
